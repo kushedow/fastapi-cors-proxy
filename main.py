@@ -71,7 +71,7 @@ async def proxy(request: Request, full_path: str):
             )
         elif request.method == "POST":
             response = await client.post(
-                url, headers=headers, data=await request.body()
+                url, headers=headers, params=request.query_params, data=await request.body()
             )
         elif request.method == "PUT":
             response = await client.put(url, headers=headers, data=await request.body())
