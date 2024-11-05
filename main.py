@@ -64,7 +64,10 @@ async def proxy(request: Request, full_path: str):
         headers.pop(header, None)
 
     # Use httpx to send the request to the target server
-    async with httpx.AsyncClient() as client:
+
+    timeout = httpx.Timeout(60.0)
+    
+    async with httpx.AsyncClient(timeout=timeout) as client:
         if request.method == "GET":
             response = await client.get(
                 url, headers=headers, params=request.query_params
